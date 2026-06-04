@@ -2,7 +2,7 @@
 
 A lightweight, local-first React Native (Expo) mobile application designed specifically to scan barcodes and manage item counts offline, syncing them seamlessly with the main Web Dashboard.
 
-> **Note:** Standalone Android builds will soon be officially published to the **Google Play Store**. While the code is fully compatible with iOS, there are **no active plans to publish to the Apple App Store** (subject to future demand).
+> **Note:** Standalone Android builds will soon be officially published to the **Google Play Store**. While the code is fully compatible with iOS, there are **no active plans to publish to the Apple App Store**.
 
 ## Key Features
 
