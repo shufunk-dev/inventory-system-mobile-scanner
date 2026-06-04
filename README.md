@@ -2,6 +2,8 @@
 
 A lightweight, local-first React Native (Expo) mobile application designed specifically to scan barcodes and manage item counts offline, syncing them seamlessly with the main Web Dashboard.
 
+> **Note:** Standalone applications are soon to be officially published to the **Google Play Store** and the **Apple App Store** for seamless installation and automatic updates.
+
 ## Key Features
 
 - **Offline-First Scan Queue**: Scan barcodes in areas with poor or zero connectivity. Items are stored locally on the device in a high-speed, persistent queue context.
