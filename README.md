@@ -39,3 +39,26 @@ Make sure you have Node.js and the Expo CLI installed. Download the **Expo Go** 
 
 ### Connecting Your Device
 Scan the QR code displayed in your terminal using the **Expo Go** app (Android) or the default Camera app (iOS) to launch the scanner application instantly on your physical phone!
+
+## Compiling a Standalone APK
+
+If you want to compile and build a standalone, installable `.apk` file for Android devices, you can use Expo Application Services (EAS) in the cloud:
+
+1. **Install EAS CLI**:
+   ```bash
+   npm install -g eas-cli
+   ```
+2. **Log in to Expo**:
+   ```bash
+   eas login
+   ```
+3. **Configure Build Settings**:
+   ```bash
+   eas build:configure
+   ```
+4. **Trigger Cloud Build**:
+   Run the preview build profile (which generates an installable APK instead of a Play Store bundle):
+   ```bash
+   eas build --platform android --profile preview
+   ```
+Once the build completes on Expo's servers, you will be provided with a direct download link for the `.apk` file.
