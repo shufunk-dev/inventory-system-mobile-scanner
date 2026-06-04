@@ -2,7 +2,7 @@
 
 A lightweight, local-first React Native (Expo) mobile application designed specifically to scan barcodes and manage item counts offline, syncing them seamlessly with the main Web Dashboard.
 
-> **Note:** Standalone applications are soon to be officially published to the **Google Play Store** and the **Apple App Store** for seamless installation and automatic updates.
+> **Note:** Standalone Android builds will soon be officially published to the **Google Play Store**. While the code is fully compatible with iOS, there are **no active plans to publish to the Apple App Store** (subject to future demand).
 
 ## Key Features
 
@@ -64,3 +64,22 @@ If you want to compile and build a standalone, installable `.apk` file for Andro
    eas build --platform android --profile preview
    ```
 Once the build completes on Expo's servers, you will be provided with a direct download link for the `.apk` file.
+
+## Running on iOS (Apple Devices)
+
+If you want to run the scanner application on an iPhone or iPad, there are two primary methods depending on your needs:
+
+### A. Free Developer Run (Recommended)
+You do **not** need a paid Apple Developer account to run the scanner for personal or development use:
+1. Install the free **Expo Go** application from the App Store on your iOS device.
+2. Follow the **How to Get Started** instructions above to run the development server (`npm start`) locally.
+3. Open the iOS Camera app, scan the terminal QR code, and open it in Expo Go to launch the scanner instantly.
+
+### B. Compiling a Standalone Installer Package (.ipa)
+Building a standalone, shareable installer bundle (`.ipa` file) that runs natively without Expo Go requires code signing:
+* **Prerequisites**: A Mac running Xcode and a paid **Apple Developer Program** subscription ($99/year).
+* **Build Command**: Set up credentials and execute the EAS build command for iOS:
+  ```bash
+  eas build --platform ios
+  ```
+Because of iOS ecosystem security restrictions, Apple does not permit sideloading unsigned binary packages without certificate signing.
