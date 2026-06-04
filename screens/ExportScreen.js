@@ -23,7 +23,27 @@ export default function ExportScreen({ onGoToScanner }) {
       for (let i = 0; i < queue.length; i++) {
         const item = queue[i];
         if (item.type === 'barcode') {
-          metadata.push(item);
+          if (item.uri) {
+            const base64Data = await FileSystem.readAsStringAsync(item.uri, {
+              encoding: 'base64',
+            });
+            const filename = `photo_${item.timestamp}.jpg`;
+            zip.file(filename, base64Data, { base64: true });
+            metadata.push({
+              type: 'barcode',
+              itemType: item.itemType,
+              data: item.data,
+              filename: filename,
+              timestamp: item.timestamp,
+            });
+          } else {
+            metadata.push({
+              type: 'barcode',
+              itemType: item.itemType,
+              data: item.data,
+              timestamp: item.timestamp,
+            });
+          }
         } else if (item.type === 'photo') {
           const base64Data = await FileSystem.readAsStringAsync(item.uri, {
             encoding: 'base64',
@@ -32,6 +52,7 @@ export default function ExportScreen({ onGoToScanner }) {
           zip.file(filename, base64Data, { base64: true });
           metadata.push({
             type: 'photo',
+            itemType: item.itemType,
             filename: filename,
             timestamp: item.timestamp,
           });
@@ -43,22 +64,36 @@ export default function ExportScreen({ onGoToScanner }) {
           zip.file(filename, base64Data, { base64: true });
           metadata.push({
             type: 'toy',
+            itemType: item.itemType,
             filename: filename,
             timestamp: item.timestamp,
           });
-        } else if (item.type === 'coin') {
+        } else if (item.type === 'video') {
+          const base64Data = await FileSystem.readAsStringAsync(item.uri, {
+            encoding: 'base64',
+          });
+          const filename = `video_${item.timestamp}.jpg`;
+          zip.file(filename, base64Data, { base64: true });
+          metadata.push({
+            type: 'video',
+            itemType: item.itemType,
+            filename: filename,
+            timestamp: item.timestamp,
+          });
+        } else if (item.type === 'coin' || item.type === 'card') {
           // Read Front
           const frontBase64 = await FileSystem.readAsStringAsync(item.frontUri, { encoding: 'base64' });
-          const frontFilename = `coin_front_${item.timestamp}.jpg`;
+          const frontFilename = `${item.type}_front_${item.timestamp}.jpg`;
           zip.file(frontFilename, frontBase64, { base64: true });
 
           // Read Back
           const backBase64 = await FileSystem.readAsStringAsync(item.backUri, { encoding: 'base64' });
-          const backFilename = `coin_back_${item.timestamp}.jpg`;
+          const backFilename = `${item.type}_back_${item.timestamp}.jpg`;
           zip.file(backFilename, backBase64, { base64: true });
 
           metadata.push({
-            type: 'coin',
+            type: item.type,
+            itemType: item.itemType,
             frontFilename,
             backFilename,
             timestamp: item.timestamp,
@@ -99,12 +134,15 @@ export default function ExportScreen({ onGoToScanner }) {
     if (item.type === 'barcode') {
       typeLabel = 'Barcode';
       dataLabel = item.data;
-    } else if (item.type === 'coin') {
-      typeLabel = 'Coin';
+    } else if (item.type === 'coin' || item.type === 'card') {
+      typeLabel = item.type === 'coin' ? 'Coin' : 'Trading Card';
       dataLabel = 'Front & Back Captured';
     } else if (item.type === 'toy') {
       typeLabel = 'Toy';
       dataLabel = 'Action Figure / Toy Captured';
+    } else if (item.type === 'video') {
+      typeLabel = 'Video';
+      dataLabel = 'Video Captured';
     }
 
     return (
@@ -146,6 +184,24 @@ export default function ExportScreen({ onGoToScanner }) {
           )}
         </TouchableOpacity>
       </View>
+
+      {queue.length > 0 && (
+        <TouchableOpacity 
+          style={styles.clearButton} 
+          onPress={() => {
+            Alert.alert(
+              'Clear Queue',
+              'Are you sure you want to clear all scanned items? This cannot be undone.',
+              [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Clear', style: 'destructive', onPress: () => { clearQueue(); onGoToScanner(); } }
+              ]
+            );
+          }}
+        >
+          <Text style={styles.clearButtonText}>Clear Queue & Restart</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -223,6 +279,20 @@ const styles = StyleSheet.create({
   },
   exportButtonText: {
     color: '#fff',
+    fontWeight: 'bold',
+  },
+  clearButton: {
+    paddingVertical: 15,
+    marginHorizontal: 20,
+    marginBottom: 20,
+    borderRadius: 8,
+    backgroundColor: '#ffebee',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ffcdd2',
+  },
+  clearButtonText: {
+    color: '#d32f2f',
     fontWeight: 'bold',
   },
 });
