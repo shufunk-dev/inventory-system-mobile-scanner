@@ -12,6 +12,7 @@ A lightweight, local-first React Native (Expo) mobile application designed speci
 - **Direct Local Network Sync / ZIP Exports**: 
   - Generates unified JSON data structures and ZIP payloads of all scanned items.
   - Supports manual transmission transfer to the Next.js Web Dashboard.
+- **Multi-Store & Specialized Asset Ingest**: Syncs directly to dedicated vendor booth databases on the central server, supporting specific item captures (like Sheldon coin grading, trading cards, comic publisher issues, and toys).
 
 ## Project Structure
 
