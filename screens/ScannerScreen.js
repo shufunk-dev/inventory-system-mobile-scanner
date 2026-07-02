@@ -140,7 +140,10 @@ export default function ScannerScreen({ onGoToExport }) {
                scanMode === 'comic' ? '🦸‍♂️ Comic Book' :
                scanMode === 'toy' ? '🧸 Vintage Toy' :
                scanMode === 'game' ? '🎮 Video Game' :
-               '🎬 Movies and TV Shows'} ▾
+               scanMode === 'video' ? '🎬 Movies and TV Shows' :
+               scanMode === 'music' ? '🎵 Music' :
+               scanMode === 'hardware' ? '🖥️ Retro Tech' :
+               '🔧 Tools & Workshop'} ▾
             </Text>
           </TouchableOpacity>
         </View>
@@ -170,6 +173,15 @@ export default function ScannerScreen({ onGoToExport }) {
             </TouchableOpacity>
             <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('video'); setFrontUri(null); setIsDropdownOpen(false); }}>
               <Text style={styles.dropdownItemText}>🎬 Movies and TV Shows</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('music'); setFrontUri(null); setIsDropdownOpen(false); }}>
+              <Text style={styles.dropdownItemText}>🎵 Music</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('hardware'); setFrontUri(null); setIsDropdownOpen(false); }}>
+              <Text style={styles.dropdownItemText}>🖥️ Retro Tech</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('tool'); setFrontUri(null); setIsDropdownOpen(false); }}>
+              <Text style={styles.dropdownItemText}>🔧 Tools & Workshop</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -226,7 +238,7 @@ export default function ScannerScreen({ onGoToExport }) {
             <Text style={styles.exportButtonText}>Finish & Export</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.versionText}>Beta 1.3</Text>
+        <Text style={styles.versionText}>Beta 1.9</Text>
       </View>
     </View>
   );
