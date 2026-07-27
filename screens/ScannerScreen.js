@@ -134,6 +134,7 @@ export default function ScannerScreen({ onGoToExport }) {
           >
             <Text style={styles.dropdownToggleText}>
               {scanMode === 'standard' ? '📷 Standard Mode' :
+               scanMode === 'bottle' ? '🍾 Bottle Mode' :
                scanMode === 'graded' ? '🏆 Graded Item' :
                scanMode === 'coin' ? '🪙 Coin Mode' :
                scanMode === 'card' ? '🃏 Card Mode' :
@@ -152,6 +153,9 @@ export default function ScannerScreen({ onGoToExport }) {
           <View style={styles.dropdownMenu}>
             <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('standard'); setFrontUri(null); setIsDropdownOpen(false); }}>
               <Text style={styles.dropdownItemText}>📷 Standard Mode</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('bottle'); setFrontUri(null); setIsDropdownOpen(false); }}>
+              <Text style={styles.dropdownItemText}>🍾 Bottle Mode</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.dropdownItem} onPress={() => { setScanMode('graded'); setFrontUri(null); setIsDropdownOpen(false); }}>
               <Text style={styles.dropdownItemText}>🏆 Graded Item</Text>
